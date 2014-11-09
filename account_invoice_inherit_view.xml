@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    				 <record model="ir.ui.view" id="account_invoice_1_form_view">
+                <field name="name">account.invoice.form</field>
+                <field name="model">account.invoice</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.invoice_form"/>
+                <field name="arch" type="xml">
+                		<xpath expr="//form/sheet/notebook/page[@string='Invoice Lines']/field[@name='invoice_line']/tree[@string='Invoice Lines']/field[@name='product_id']" position="replace">
+                			 
+                			<field name="product_id" on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id)"/>
+                		</xpath>
+                   
+                </field>
+            </record>
+    		<record model="ir.ui.view" id="account_invoice_line_form_view">
+                <field name="name">account.invoice.form</field>
+                <field name="model">account.invoice.line</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.view_invoice_line_form"/>
+                <field name="arch" type="xml">
+                	<!-- <xpath expr ="//form/group/group[1]/field[@name='product_id']" position="replace">
+                		<field name="product_id" string="Policy type" widget ="selection" on_change="product_id_change(product_id, uos_id, quantity, name, parent.type,
+                		 parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, context, parent.company_id)"/>
+                	</xpath> -->
+                    <xpath expr ="//form/group/group[1]/field[@name='price_unit']" position="after">
+                    	<field name="insured_amt_acc_inline"/>
+                    	<field name="period_insured_acc_inline"/>
+                    	<field name="premium_acc_inline"/>                    
+                	</xpath>
+                	<xpath expr ="//form/group/group[2]/field[@name='account_analytic_id']" position="after">
+                    	<field name="deduct_acc_inline"/>
+                    	<field name="com_acc_inline"/>
+                    	<field name="agent_acc_inline"/>                    
+                	</xpath>
+                	<xpath expr ="//form/field[@name='name']" position="after">
+                		<field name="pass_value_p2acc_inline" invisible="1"/> 
+                		<group colspan="2" col="2"  attrs="{'invisible':[('pass_value_p2acc_inline','!=','Erection All Risks')]}">
+                			<field name="work_quote_acc_inline"/>
+                       		<field name="sum_insur_qu_acc_inline"/> 
+                       	</group>
+                       	<group colspan="2" col="4" attrs="{'invisible':[('pass_value_p2acc_inline','!=','Contractor All Risks')]}">
+                			<field name="sum_insur_qu_acc_inline1"/>      	
+                    		<field name="xtensions_quo_acc_inline"/>     
+                		</group>
+                		<group colspan="2" col="4" attrs="{'invisible':[('pass_value_p2acc_inline','!=','Third Party Liability')]}">
+                			<field name="benefit_quo_acc_inline"/>      	
+                    		<field name="plan_quote_acc_inline"/>    	
+                		</group>
+                		<group colspan="2" col="4" attrs="{'invisible':[('pass_value_p2acc_inline','!=','Public Liability Insurance')]}">
+                			<field name="sum_insur_qu_acc_inline2"/> 
+                    		<field name="benefit_quo_acc_inline1"/>    	
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Fire, Allied Perils &amp; Theft')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline"/> 
+                    			<field name="sum_insur_qu_acc_inline3"/>
+                    		</group> 
+                    		<group>
+                    			<field name="benefit_quo_acc_inline2"/>    		
+                			</group>
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Individual Medical Expenses')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline1"/> 
+                    			<field name="sum_insur_qu_acc_inline4"/> 
+                    		</group> 
+                    		<group>
+                    			<field name="benefit_quo_acc_inline3"/> 
+                    		</group>  		
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Plant All Risk')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline2"/> 
+                    			<field name="sum_insur_qu_acc_inline5"/>
+                    		</group> 
+                    		<group> 
+                    			<field name="benefit_quo_acc_inline4"/>    	
+                			</group>
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Money')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline3"/> 
+                    			<field name="sum_insur_qu_acc_inline6"/> 
+                    		</group> 
+                    		<group> 
+                    			<field name="benefit_quo_acc_inline5"/>    	
+                			</group> 
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Personal Accident')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline4"/>
+                    			<field name="limit_quote_acc_inline"/>
+                    		</group> 
+                    		<group>  
+                    			<field name="sum_insur_qu_acc_inline7"/> 
+                    			<field name="benefit_quo_acc_inline6"/>    	
+                			</group> 
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Marine Cargo')]}">
+                			<group>
+                				<field name="period_quote_acc_inline"/>
+                    			<field name="voyage_quote_acc_inline"/>
+                    			<field name="car_quote_acc_inline"/>                     				
+                    		</group>
+                    		<group>                    				
+                    			<field name="liability_quo_acc_inline1"/>		
+                    			<field name="bov_quote_acc_inline"/>
+                    			<field name="sum_insur_qu_acc_inline8"/> 
+                    			<field name="benefit_quo_acc_inline7"/> 
+                    			<field name="rate_quote_acc_inline1"/>  	
+                			</group>
+                		</group>
+                       	<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Non Binding Indication')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline5"/> 
+                    			<field name="sum_insur_qu_acc_inline9"/>
+                    		</group>
+                    		<group>  
+                    			<field name="benefit_quo_acc_inline8"/>    	
+                			</group>
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Property All Risks')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline6"/> 
+                    			<field name="sum_insur_qu_acc_inline10"/> 
+                    		</group>
+                    		<group>  
+                    			<field name="benefit_quo_acc_inline9"/>    	
+                			</group>
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Fidelity')]}">
+                			<group>
+                				<field name="busines_quote_acc_inline1"/> 
+                    			<field name="person_quote_acc_inline1"/> 
+                    			<field name="xcess_quote_acc_inline"/>
+                    		</group>
+                    		<group> 	
+                    			<field name="xtensions_quo_acc_inline1"/> 
+                    			<field name="sum_insur_qu_acc_inline11"/> 
+                    			<field name="benefit_quo_acc_inline10"/>   	
+                			</group>
+                		</group>
+                		<group colspan="2" col="2" attrs="{'invisible':[('pass_value_p2acc_inline','!=','Terrorism Liability')]}">
+                			<field name="situation_quo_acc_inline"/> 
+                    		<field name="sum_insur_qu_acc_inline12"/> 
+                    		<field name="benefit_quo_acc_inline11"/>    	
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Sabotage and Terrorism')]}">
+                			<group>
+                				<field name="limit_los_quo_acc_inline"/> 
+                    			<field name="sum_insur_qu_acc_inline13"/>
+                    		</group>
+                    		<group> 	 
+                    			<field name="benefit_quo_acc_inline12"/>    	
+                			</group>
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Machinery Breakdown')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline7"/> 
+                    			<field name="sum_insur_qu_acc_inline14"/> 
+                    		</group>
+                    		<group> 	
+                    			<field name="benefit_quo_acc_inline13"/>    	
+                			</group>
+                		</group>
+                		<group colspan="2" col="4" attrs="{'invisible':[('pass_value_p2acc_inline','!=','Motor')]}">
+                			<field name="Vehicle_quote_acc_inline"/> 
+                    		<field name="name_quote_acc_inline"/> 
+                    		<field name="sum_insur_qu_acc_inline15"/> 
+                    		<field name="benefit_quo_acc_inline14"/> 	
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Property Contents')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline8"/> 
+                    			<field name="sum_insur_qu_acc_inline16"/>
+                    		</group>
+                    		<group>  
+                    			<field name="benefit_quo_acc_inline15"/>    		
+                			</group>
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Marine Hull')]}">
+                			<group>
+                				<field name="period_quote_acc_inline1"/> 
+                				<field name="voyage_quote_acc_inline1"/> 
+                    		</group>
+                    		<group>                    				
+                    			<field name="liability_quo_acc_inline"/>  	
+                    			<field name="sum_insur_qu_acc_inline17"/> 
+                    			<field name="benefit_quo_acc_inline16"/> 
+                    			<field name="rate_quote_acc_inline"/>    	
+                			</group>
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Group Life')]}">
+                			<group>
+                				<field name="busines_quote_acc_inline"/> 
+                    			<field name="person_quote_acc_inline"/> 
+                    			<field name="name_quote_acc_inline1"/> 
+                    		</group>
+                    		<group>   	
+                    			<field name="xtensions_quo_acc_inline2"/> 
+                    			<field name="sum_insur_qu_acc_inline18"/> 
+                    			<field name="benefit_quo_acc_inline17"/>    	
+                			</group>
+                		</group>
+                		<group colspan="2" col="4" attrs="{'invisible':[('pass_value_p2acc_inline','!=','Travel')]}">
+                			<field name="des_quote_acc_inline"/> 
+                    		<field name="name_quote_acc_inline2"/>    	
+                    		<field name="xtensions_quo_acc_inline3"/> 
+                    		<field name="sum_insur_qu_acc_inline19"/> 
+                    		<field name="benefit_quo_acc_inline18"/>    	
+                		</group>
+                		<group colspan="2" col="4" attrs="{'invisible':[('pass_value_p2acc_inline','!=','Professional Indemnity')]}">
+                			<field name="ocupancy_quo_acc_inline9"/> 
+                    		<field name="limit_quote_acc_inline1"/>   
+                    		<field name="sum_insur_qu_acc_inline20"/> 
+                    		<field name="benefit_quo_acc_inline19"/>      
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Property Fire')]}">
+                			<group>
+                				<field name="ocupancy_quo_acc_inline10"/>                    		
+                    			<field name="sum_insur_qu_acc_inline21"/> 
+                    		</group>
+                    		<group>
+                    			<field name="benefit_quo_acc_inline20"/>      
+                			</group>
+                		</group>
+                		<group colsoan="2" col="4" attrs="{'invisible':[('pass_value_p2acc_inline','!=','Director and Officer Liability')]}">                			
+                			<field name="ocupancy_quo_acc_inline11"/> 
+                    		<field name="limit_quote_acc_inline2"/>                    		   
+                    		<field name="sum_insur_qu_acc_inline22"/> 
+                    		<field name="benefit_quo_acc_inline21"/>                    		   
+                		</group>
+                		<group attrs="{'invisible':[('pass_value_p2acc_inline','!=','Miscellaneous')]}">
+                			<group> 
+                				<field name="ocupancy_quo_acc_inline12"/>                    		
+                    			<field name="sum_insur_qu_acc_inline23"/>
+                    		</group>
+                    		<group> 
+                    			<field name="benefit_quo_acc_inline22"/>
+                    		</group>     
+                		</group>  
+                	</xpath>
+                </field>
+            </record>
+      		 <record model="ir.ui.view" id="account_invoice_form_view">
+                <field name="name">account.invoice.form</field>
+                <field name="model">account.invoice</field>                
+                <field name="inherit_id" ref="account.invoice_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//form/sheet/notebook/page[@string='Invoice Lines']/field[@name='invoice_line']/tree[@string='Invoice Lines']" positon= "inside">
+                    	<field name="insured_amt_acc_inline"/>
+                 
+                    	<field name="premium_acc_inline"/> 
+                    	<field name="deduct_acc_inline"/>
+                    	 <field name="com_acc_inline"/>
+                    	<!--<field name="agent_acc_inline"/> -->                   
+                   
+                    </xpath>
+                </field>
+            </record> 		 
+    
+    </data>
+</openerp>

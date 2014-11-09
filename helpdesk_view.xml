@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    		 <record model="ir.ui.view" id="crm_helpdesk_form_view">
+                <field name="name">crm.helpdesk.form</field>
+                <field name="model">crm.helpdesk</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+                <field name="arch" type="xml">                    
+                        <field name="name" position="after">                        	 
+                        	<field name="policy1"/>  
+                        	<field name="policy2"/>                
+                </field>
+                </field>
+            </record>
+    
+    </data>
+</openerp>
+
+

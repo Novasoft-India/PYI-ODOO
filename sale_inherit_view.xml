@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    		<record model="ir.ui.view" id="sale_order_quotation_tree_view">
+                <field name="name">sale.order.tree</field>
+                <field name="model">sale.order</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="sale.view_quotation_tree"/>
+                <field name="arch" type="xml">                   
+                	<xpath expr="//tree/field[@name='name']" position="replace">
+                		<field name="name" string="Policy Number"/>
+                	</xpath>
+                	<xpath expr="//tree/field[@name='date_order']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//tree/field[@name='partner_id']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//tree/field[@name='user_id']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//tree/field[@name='amount_total']" position="before">
+                		<field name="type_sale_order"/>
+                		<field name="stage_sale_order"/>
+                		<field name="details_sale_order"/>
+                		<field name="docs_sale_order"/>
+                	</xpath>
+                </field>
+            </record>
+            
+            <record model="ir.ui.view" id="sale_order_tree_view">
+                <field name="name">sale.order.tree</field>
+                <field name="model">sale.order</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="sale.view_order_tree"/>
+                <field name="arch" type="xml">                   
+                	<xpath expr="//tree/field[@name='name']" position="replace">
+                		<field name="name" string="Policy Number"/>
+                	</xpath>
+                	<xpath expr="//tree/field[@name='date_order']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//tree/field[@name='partner_id']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//tree/field[@name='user_id']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//tree/field[@name='amount_total']" position="before">
+                		<field name="type_sale_order"/>
+                		<field name="stage_sale_order"/>
+                		<field name="details_sale_order"/>
+                		<field name="docs_sale_order"/>
+                	</xpath>
+                </field>
+            </record>
+    		
+    		<record model="ir.ui.view" id="sale_order_form_view">
+                <field name="name">sale.order.form</field>
+                <field name="model">sale.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="sale.view_order_form"/>
+                <field name="arch" type="xml">
+                	<xpath expr="//form/sheet/notebook/page[@string='Order Lines']" position="after">
+                		<page string="Policy Details">
+                			<group>
+                				<group>
+                					<field name="details_sale_order"/>
+                				</group>
+                				<group>
+                					<field name="type_sale_order"/>
+                					<field name="stage_sale_order"/>
+                					<field name="docs_sale_order"/>
+                				</group>
+                			</group>
+                		</page>
+                	</xpath> 
+                	<!-- <xpath expr="//form/sheet/group/group[2]/field[@name='shop_id']" position="attributes">
+                		<attribute name="invisible">1</attribute>
+                	</xpath> -->
+                	<xpath expr="//form/header/button[@name='print_quotation']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//form/header/button[@name='print_quotation']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>   
+                	<field name="partner_id" position="after">                		
+                        <field name="date_quote_sale_order"/>                                                   
+                	</field>
+                	<field name="date_order" position="after"> 
+                		<field name="quote_valide_sale_order"/>          
+                	</field>
+                </field>               
+            </record>
+            
+            <record model="ir.ui.view" id="sale_order_line_form_view">
+                <field name="name">sale.order.form</field>
+                <field name="model">sale.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="sale.view_order_form"/>
+                <field name="arch" type="xml">
+                	<xpath expr="//form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/group/group[1]/field[@name='price_unit']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>      
+                	</xpath> 
+                	<xpath expr="//form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/group/group[1]/field[@name='price_unit']" position="after">   
+                		  <field name="product_product" invisible="1"/> 
+                		  <field name="insured_amt"/> 
+                		  <field name="ppremium"/> 
+                		  <field name="deduct"/>       
+                	</xpath> 
+                	<!--  <xpath expr="//form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/group/group[2]/field[@name='type']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>--> 
+                	<xpath expr="//form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/group/group[2]/field[@name='th_weight']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/group/group[2]/field[@name='address_allotment_id']" position="after">   
+                		 <field name="pperiod_insured"/> 
+                		 <field name="ccom"/> 
+                		 <field name="aagent"/>        
+                	</xpath> 
+                	<!--  <xpath expr="//form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/group/group[1]/field[@name='product_id']" position="replace">
+                		<field name="product_id" string="Policy type" widget ="selection" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}" groups="base.group_user" on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"/>                		
+                	</xpath>-->
+                	<xpath expr="//form/sheet/notebook/page[@string='Order Lines']/field[@name='order_line']/form/field[@name='name']" position="after">
+                		<field name="work_quote" invisible="1"/>
+                		<group colspan="2" col="2"  attrs="{'invisible':[('work_quote','!=','Erection All Risks')]}">
+                			<field name="work_quote_so_line"/>
+                       		<field name="sum_insured_quote"/> 
+                            <field name="tc1"/>
+                       		<field name="wording1"/> 
+                       		</group>                       	
+                       	<group colspan="2" col="4" attrs="{'invisible':[('work_quote','!=','Contractor All Risks')]}">
+                			<field name="sum_insured_quote1"/>      	
+                    		<field name="xtensions_quote"/>     
+                			<field name="tc2"/>
+                       		<field name="wording2"/> 
+                       		</group> 
+                		<group colspan="2" col="4" attrs="{'invisible':[('work_quote','!=','Third Party Liability')]}">
+                			<field name="benefit_quote"/>      	
+                    		<field name="plan_quote"/>    	
+                			<field name="tc3"/>
+                       		<field name="wording3"/> 
+                       		</group> 
+                		<group colspan="2" col="4" attrs="{'invisible':[('work_quote','!=','Public Liability Insurance')]}">
+                			<field name="sum_insured_quote2"/> 
+                    		<field name="benefit_quote1"/>    	
+                			<field name="tc4"/>
+                       		<field name="wording4"/> 
+                       		</group> 
+                		<group attrs="{'invisible':[('work_quote','!=','Fire, Allied Perils &amp; Theft')]}">               
+                				<field name="ocupancy_quote"/> 
+                    			<field name="sum_insured_quote3"/>                   	
+                    			<field name="benefit_quote2"/>
+                    			<field name="tc5"/>
+                       			<field name="wording5"/>                       		    		
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Individual Medical Expenses')]}">                
+                				<field name="ocupancy_quote1"/> 
+                    			<field name="sum_insured_quote4"/>
+                    			<field name="benefit_quote3"/>
+                       			<field name="tc6"/>
+                       			<field name="wording6"/> 
+                    		</group> 		
+                		<group attrs="{'invisible':[('work_quote','!=','Plant All Risk')]}">                	
+                				<field name="ocupancy_quote2"/> 
+                    			<field name="sum_insured_quote5"/>                    		
+                    			<field name="tc7"/>
+                       			<field name="wording7"/>                    		
+                    			<field name="benefit_quote4"/>   	
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Money')]}">                			
+                				<field name="ocupancy_quote3"/> 
+                    			<field name="sum_insured_quote6"/>
+                    			<field name="benefit_quote5"/>
+                    			<field name="tc8"/>
+                       			<field name="wording8"/>   	
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Personal Accident')]}">                	
+                				<field name="ocupancy_quote4"/>
+                    			<field name="limit_quote"/>                   		
+                    			 <field name="sum_insured_quote7"/> 
+                    			<field name="benefit_quote6"/>
+                    			<field name="tc9"/>
+                       			<field name="wording9"/>   	
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Marine Cargo')]}">                			
+                				<field name="period_quote"/>
+                    			<field name="voyage_quote"/>
+                    			<field name="car_quote"/>                    				
+                    		    <field name="liability_quote1"/>		
+                    			<field name="bov_quote"/>
+                    			<field name="sum_insured_quote8"/> 
+                    			<field name="benefit_quote7"/> 
+                    			<field name="rate_quote1"/>	
+                    			<field name="tc10"/>
+                       			<field name="wording10"/>               
+                		</group>
+                       	<group attrs="{'invisible':[('work_quote','!=','Non Binding Indication')]}">                		
+                				<field name="ocupancy_quote5"/> 
+                    			<field name="sum_insured_quote9"/>                    		 
+                    			<field name="benefit_quote8"/>
+                    			<field name="tc11"/>
+                       			<field name="wording11"/>   	
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Property All Risks')]}">                	
+                				<field name="ocupancy_quote6"/> 
+                    			<field name="sum_insured_quote10"/>                     		 
+                    			<field name="benefit_quote9"/> 
+                    			<field name="tc12"/>
+                       			<field name="wording12"/>  	
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Fidelity')]}">                	
+                				<field name="busines_quote1"/> 
+                    			<field name="person_quote1"/> 
+                    			<field name="xcess_quote"/>                    			
+                    			<field name="xtensions_quote1"/> 
+                    			<field name="sum_insured_quote11"/> 
+                    			<field name="benefit_quote10"/>
+                    			<field name="tc13"/>
+                       			<field name="wording13"/>  	
+                			</group>
+                		<group colspan="2" col="2" attrs="{'invisible':[('work_quote','!=','Terrorism Liability')]}">
+                			<field name="situation_quote"/> 
+                    		<field name="sum_insured_quote12"/> 
+                    		<field name="benefit_quote11"/> 
+                    		<field name="tc14"/>
+                       		<field name="wording14"/>   	
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Sabotage and Terrorism')]}">                	
+                				<field name="limit_los_quote"/> 
+                    			<field name="sum_insured_quote13"/>                    			 
+                    			<field name="benefit_quote12"/> 
+                    			<field name="tc15"/>
+                       			<field name="wording15"/>   	
+                			</group>                		
+                		<group attrs="{'invisible':[('work_quote','!=','Machinery Breakdown')]}">                
+                				<field name="ocupancy_quote7"/> 
+                    			<field name="sum_insured_quote14"/>
+                    			<field name="benefit_quote13"/>
+                    			<field name="tc16"/>
+                       			<field name="wording16"/>    	
+                			</group>                	
+                		<group colspan="2" col="4" attrs="{'invisible':[('work_quote','!=','Motor')]}">
+                			<field name="Vehicle_quote"/> 
+                    		<field name="name_quote"/> 
+                    		<field name="sum_insured_quote15"/> 
+                    		<field name="benefit_quote14"/>
+                    		<field name="tc17"/>
+                       		<field name="wording17"/> 	
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Property Contents')]}">                		
+                				<field name="ocupancy_quote8"/> 
+                    			<field name="sum_insured_quote16"/>                    		 
+                    			<field name="benefit_quote15"/>
+                    			<field name="tc18"/>
+                       			<field name="wording18"/>    		
+                			</group>                		
+                		<group attrs="{'invisible':[('work_quote','!=','Marine Hull')]}">                		
+                				<field name="period_quote1"/> 
+                				<field name="voyage_quote1"/>                				                 				
+                    			<field name="liability_quote"/>  	
+                    			<field name="sum_insured_quote17"/> 
+                    			<field name="benefit_quote16"/> 
+                    			<field name="rate_quote"/>
+                    			<field name="tc19"/>
+                       			<field name="wording19"/>     	
+                		</group>                	
+                		<group attrs="{'invisible':[('work_quote','!=','Group Life')]}">                			
+                				<field name="busines_quote"/> 
+                    			<field name="person_quote"/> 
+                    			<field name="name_quote"/>
+                    		  	<field name="xtensions_quote2"/> 
+                    			<field name="sum_insured_quote18"/> 
+                    			<field name="benefit_quote17"/>
+                    			<field name="tc20"/>
+                       			<field name="wording20"/>    	
+                		</group>
+                		<group colspan="2" col="4" attrs="{'invisible':[('work_quote','!=','Travel')]}">
+                			<field name="des_quote"/> 
+                    		<field name="name_quote2"/>    	
+                    		<field name="xtensions_quote3"/> 
+                    		<field name="sum_insured_quote19"/> 
+                    		<field name="benefit_quote18"/>
+                    		<field name="tc21"/>
+                       		<field name="wording21"/>     	
+                		</group>
+                		<group colspan="2" col="4" attrs="{'invisible':[('work_quote','!=','Professional Indemnity')]}">
+                			<field name="ocupancy_quote9"/> 
+                    		<field name="limit_quote1"/>   
+                    		<field name="sum_insured_quote20"/> 
+                    		<field name="benefit_quote19"/>
+                    		<field name="tc22"/>
+                       			<field name="wording22"/>       
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Property Fire')]}">                		
+                				<field name="ocupancy_quote10"/>                    		
+                    			<field name="sum_insured_quote21"/>
+                    			<field name="benefit_quote20"/>
+                    			<field name="tc23"/>
+                       			<field name="wording23"/>      
+                		</group>
+                		<group colsoan="2" col="4" attrs="{'invisible':[('work_quote','!=','Director and Officer Liability')]}">                			
+                			<field name="ocupancy_quote11"/> 
+                    		<field name="limit_quote2"/>                    		   
+                    		<field name="sum_insured_quote22"/> 
+                    		<field name="benefit_quote21"/>
+                    		<field name="tc24"/>
+                       		<field name="wording24"/>                     		   
+                		</group>
+                		<group attrs="{'invisible':[('work_quote','!=','Miscellaneous')]}">                	 
+                				<field name="ocupancy_quote12"/>                    		
+                    			<field name="sum_insured_quote23"/>                    		
+                    			<field name="benefit_quote22"/>
+                    			<field name="tc25"/>
+                       			<field name="wording25"/>                    		     
+                		</group> 
+                	</xpath>              
+                </field>
+            </record>
+              
+    		<menuitem id="base.menu_product" name="Policies" parent="base.menu_base_partner" sequence="9"/>
+    		<menuitem action="product.product_normal_action_sell" id="product.menu_products" name="Policy" parent="base.menu_product" sequence="2"/>
+    		<menuitem action="product.product_category_action" id="product.menu_products_category" parent="base.menu_product" name="Policy by Category" sequence="1" groups="base.group_no_one"/>
+    		
+    		<record model="ir.ui.view" id="product_tree_view">
+                <field name="name">product.product.tree</field>
+                <field name="model">product.product</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="product.product_product_tree_view"/>
+                <field name="arch" type="xml">
+                	<xpath expr="//tree/field[@name='default_code']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath> 
+                	<!--  <xpath expr="//tree/field[@name='qty_available']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//tree/field[@name='virtual_available']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>-->
+                	<xpath expr="//tree/field[@name='name']" position="after">   
+                		 <field name="com_product"/>                			                				
+                		 <field name="agent_product"/>            
+                	</xpath>   
+                </field>
+            </record>
+    		
+    		<record model="ir.ui.view" id="product_form_view">
+                <field name="name">product.product.form</field>
+                <field name="model">product.template</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="product.product_template_form_view"/>
+                <field name="arch" type="xml">
+                	  <xpath expr="//form[@string='Product']/sheet/div/div[@class='oe_title']" position="inside" >
+                		<label for="product_category_select" string="Policy Category"/>  
+                			<h2>              		
+                			<field name="product_category_select"/>      </h2>          		
+                	</xpath> 
+                	<xpath expr="//form[@string='Product']/sheet/notebook/page[@string='Information']/group/group[1]/field[@name='list_price']" position="attributes" >   
+                		<attribute name="invisible">1</attribute>
+                		<field name="insured_amt_product"/>                		        
+                	</xpath>
+                	<xpath expr="//form[@string='Product']/sheet/notebook/page[@string='Information']" position="after">
+                		<page string="Wording">
+                			<field name="wording_product"/> 
+                    	</page>
+                    	<page string="Erection All Risks" attrs="{'invisible':[('product_category_select','!=','erection_all_risks')]}"> 
+                			<group colspan="2" col="2">
+                				<field name="work_quote_product"/>
+                        		<field name="sum_insured_quote_product"/> 
+                			</group>
+                		</page>
+                		<page string="Contractor All Risks" attrs="{'invisible':[('product_category_select','!=','contractor_all_risks')]}">
+                			<group colspan="2" col="4">
+                				<field name="sum_insured_quote_product1"/>      	
+                    			<field name="xtensions_quote_product"/>     
+                			</group>
+                		</page>
+                		<page string="Third Party Liability" attrs="{'invisible':[('product_category_select','!=','third_party_liability')]}"> 
+                			<group colspan="2" col="4">
+                				<field name="benefit_quote_product"/>      	
+                    			<field name="plan_quote_product"/>    	
+                			</group>
+                		</page>
+                		<page string="Public Liability Insurance" attrs="{'invisible':[('product_category_select','!=','public_liability_insurance')]}">
+                			<group colspan="2" col="4">
+                				<field name="sum_insured_quote_product2"/> 
+                    			<field name="benefit_quote_product1"/>    	
+                			</group>
+                		</page>
+                		<page string="Fire, Allied Perils &amp; Theft" attrs="{'invisible':[('product_category_select','!=','fire_allied_perils_theft')]}"> 
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product"/> 
+                    				<field name="sum_insured_quote_product3"/>
+                    			</group> 
+                    			<group>
+                    				<field name="benefit_quote_product2"/>    		
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Individual Medical Expenses" attrs="{'invisible':[('product_category_select','!=','individual_medical_expenses')]}">
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product1"/> 
+                    				<field name="sum_insured_quote_product4"/> 
+                    			</group> 
+                    			<group>
+                    				<field name="benefit_quote_product3"/> 
+                    			</group>  		
+                			</group>
+                		</page>
+                		<page string="Plant All Risk" attrs="{'invisible':[('product_category_select','!=','plant_all_risk')]}"> 
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product2"/> 
+                    				<field name="sum_insured_quote_product5"/>
+                    			</group> 
+                    			<group> 
+                    				<field name="benefit_quote_product4"/>    	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Money" attrs="{'invisible':[('product_category_select','!=','money')]}"> 
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product3"/> 
+                    				<field name="sum_insured_quote_product6"/> 
+                    			</group> 
+                    			<group> 
+                    				<field name="benefit_quote_product5"/>    	
+                				</group> 
+                			</group>
+                		</page>
+                		<page string="Personal Accident" attrs="{'invisible':[('product_category_select','!=','personal_accident')]}">
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product4"/>
+                    				<field name="limit_quote_product"/>
+                    			</group> 
+                    			<group>  
+                    				<field name="sum_insured_quote_product7"/> 
+                    				<field name="benefit_quote_product6"/>    	
+                				</group> 
+                			</group>
+                		</page>
+                		<page string="Marine Cargo" attrs="{'invisible':[('product_category_select','!=','marine_cargo')]}"> 
+                			<group>
+                				<group>
+                					<field name="period_quote_product"/>
+                    				<field name="voyage_quote_product"/>
+                    				<field name="car_quote_product"/>                     				
+                    			</group>
+                    			<group>                    				
+                    				<field name="liability_quote_product1"/>		
+                    				<field name="bov_quote_product"/>
+                    				<field name="sum_insured_quote_product8"/> 
+                    				<field name="benefit_quote_product7"/> 
+                    				<field name="rate_quote_product1"/>  	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Non Binding Indication" attrs="{'invisible':[('product_category_select','!=','non_binding_indication')]}">
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product5"/> 
+                    				<field name="sum_insured_quote_product9"/>
+                    			</group>
+                    			<group>  
+                    				<field name="benefit_quote_product8"/>    	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Property All Risks" attrs="{'invisible':[('product_category_select','!=','property_all_risks')]}"> 
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product6"/> 
+                    				<field name="sum_insured_quote_product10"/> 
+                    			</group>
+                    			<group>  
+                    				<field name="benefit_quote_product9"/>    	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Fidelity" attrs="{'invisible':[('product_category_select','!=','fidelity')]}"> 
+                			<group>
+                				<group>
+                					<field name="busines_quote_product1"/> 
+                    				<field name="person_quote_product1"/> 
+                    				<field name="xcess_quote_product"/>
+                    			</group>
+                    			<group> 	
+                    				<field name="xtensions_quote_product1"/> 
+                    				<field name="sum_insured_quote_product11"/> 
+                    				<field name="benefit_quote_product10"/>   	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Terrorism Liability" attrs="{'invisible':[('product_category_select','!=','terrorism_liability')]}"> 
+                			<group colspan="2" col="2">
+                				<field name="situation_quote_product"/> 
+                    			<field name="sum_insured_quote_product12"/> 
+                    			<field name="benefit_quote_product11"/>    	
+                			</group>
+                		</page>
+                		<page string="Sabotage &amp; Terrorism" attrs="{'invisible':[('product_category_select','!=','sabotage_terrorism')]}"> 
+                			<group>
+                				<group>
+                					<field name="limit_los_quote_product"/> 
+                    				<field name="sum_insured_quote_product13"/>
+                    			</group>
+                    			<group> 	 
+                    				<field name="benefit_quote_product12"/>    	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Machinery Breakdown" attrs="{'invisible':[('product_category_select','!=','machinery_breakdown')]}"> 
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product7"/> 
+                    				<field name="sum_insured_quote_product14"/> 
+                    			</group>
+                    			<group> 	
+                    				<field name="benefit_quote_product13"/>    	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Motor" attrs="{'invisible':[('product_category_select','!=','motor')]}">
+                			<group colspan="2" col="4">
+                				<field name="Vehicle_quote_product"/> 
+                    			<field name="name_quote_product"/> 
+                    			<field name="sum_insured_quote_product15"/> 
+                    			<field name="benefit_quote_product14"/> 	
+                			</group>
+                		</page>
+                		<page string="Property Contents" attrs="{'invisible':[('product_category_select','!=','property_contents')]}"> 
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product8"/> 
+                    				<field name="sum_insured_quote_product16"/>
+                    			</group>
+                    			<group>  
+                    				<field name="benefit_quote_product15"/>    		
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Marine Hull" attrs="{'invisible':[('product_category_select','!=','marine_hull')]}"> 
+                			<group>
+                				<group>
+                					<field name="period_quote_product1"/> 
+                					<field name="voyage_quote_product1"/> 
+                    			</group>
+                    			<group>                    				
+                    				<field name="liability_quote_product"/>  	
+                    				<field name="sum_insured_quote_product17"/> 
+                    				<field name="benefit_quote_product16"/> 
+                    				<field name="rate_quote_product"/>    	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Group Life" attrs="{'invisible':[('product_category_select','!=','group_life')]}"> 
+                			<group>
+                				<group>
+                					<field name="busines_quote_product"/> 
+                    				<field name="person_quote_product"/> 
+                    				<field name="name_quote_product1"/> 
+                    			</group>
+                    			<group>   	
+                    				<field name="xtensions_quote_product2"/> 
+                    				<field name="sum_insured_quote_product18"/> 
+                    				<field name="benefit_quote_product17"/>    	
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Travel" attrs="{'invisible':[('product_category_select','!=','travel')]}"> 
+                			<group colspan="2" col="4">
+                				<field name="des_quote_product"/> 
+                    			<field name="name_quote_product2"/>    	
+                    			<field name="xtensions_quote_product3"/> 
+                    			<field name="sum_insured_quote_product19"/> 
+                    			<field name="benefit_quote_product18"/>    	
+                			</group>
+                		</page>
+                		<page string="Professional Indemnity" attrs="{'invisible':[('product_category_select','!=','professional_indemnity')]}">
+                			<group colspan="2" col="4">
+                				<field name="ocupancy_quote_product9"/> 
+                    			<field name="limit_quote_product1"/>   
+                    			<field name="sum_insured_quote_product20"/> 
+                    			<field name="benefit_quote_product19"/>      
+                			</group>
+                		</page>
+                		<page string="Property Fire" attrs="{'invisible':[('product_category_select','!=','property_fire')]}"> 
+                			<group>
+                				<group>
+                					<field name="ocupancy_quote_product10"/>                    		
+                    				<field name="sum_insured_quote_product21"/> 
+                    			</group>
+                    			<group>
+                    				<field name="benefit_quote_product20"/>      
+                				</group>
+                			</group>
+                		</page>
+                		<page string="Director &amp; Officer Liability" attrs="{'invisible':[('product_category_select','!=','director_and_officer_liability')]}"> 
+                			<group colspan="2" col="4">
+                				<field name="ocupancy_quote_product11"/> 
+                    			<field name="limit_quote_product2"/>   
+                    			<field name="sum_insured_quote_product22"/> 
+                    			<field name="benefit_quote_product21"/>      
+                			</group>
+                		</page>
+                		<page string="Miscellaneous" attrs="{'invisible':[('product_category_select','!=','miscellaneous')]}"> 
+                			<group>
+                				<group> 
+                					<field name="ocupancy_quote_product12"/>                    		
+                    				<field name="sum_insured_quote_product23"/>
+                    			</group>
+                    			<group> 
+                    				<field name="benefit_quote_product22"/>
+                    			</group>     
+                			</group>
+                		</page>
+                	</xpath>
+                	<!--<xpath expr="//form[@string='Product']/sheet/notebook/page[@string='Sales']" position="replace" >
+                	 <page string="Policy" attrs="{'invisible':[('sale_ok','=',False)]}">
+                                 <group name="sale">
+                                    <group string="Sale Conditions">
+                                        <label for="warranty" string="Policy time period"/>
+                                        <div>
+                                            <field name="warranty" class="oe_inline"/> months
+                                        </div>
+                                    </group>
+                                    <group groups="product.group_uos" string="Unit of Measure">
+                                        <field name="uos_id"/>
+                                        <field name="uos_coeff"/>
+                                        <field name="mes_type"/>
+                                    </group>
+                                </group>
+                                <field name="packaging" groups="product.group_stock_packaging">
+                                    <form string="Packaging" version="7.0">
+                                        <group col="4">
+                                            <field name="ean"/>
+                                            <field name="sequence" invisible="1"/>
+                                            <newline/>
+                                            <field name="qty"/>
+                                            <field name="ul"/>
+                                            <field name="weight_ul"/>
+                                            <separator colspan="4" string="Palletization"/>
+                                            <field name="ul_qty"/>
+                                            <field name="rows"/>
+                                            <field name="weight"/>
+                                            <separator colspan="4" string="Pallet Dimension"/>
+                                            <field name="height"/>
+                                            <field name="width"/>
+                                            <field name="length"/>
+                                        </group>
+                                        <separator colspan="4" string="Description"/>
+                                        <field name="name"/>
+                                    </form>
+                                </field>
+                                <separator string="Description for Quotations"/>
+                                <field name="description_sale" placeholder="note to be displayed on quotations..."/>
+                            </page>
+                	</xpath>--> 
+                	<!-- <xpath expr="//form[@string='Product']/sheet/notebook/page[@string='Information']/group/group[2]" position="replace" >   
+                		<group>
+                			<field name="policy_ref_product"/>        
+                		</group>
+                	</xpath>  -->
+                	<xpath expr="//form[@string='Product']/sheet/notebook/page[@string='Procurements']" position="attributes" >   
+                		<attribute name="invisible">1</attribute>        
+                	</xpath>
+                	<xpath expr="//form[@string='Product']/sheet/notebook/page[@string='Inventory']" position="attributes" >  
+                		<attribute name="invisible">1</attribute> 		
+                	</xpath>
+                	<field name="description" position="before">                	
+                		<separator string="Policy Details"/>
+                		<group>                
+                			<group>               				
+                				<field name="premium_cost_product"/>                				
+                				<field name="deductable_product"/>   
+                				<field name="period_insured_product"/>                    				
+                			</group>
+                			<group>                				               				           		 
+                				<field name="com_product"/>                			                				
+                				<field name="agent_product"/>                				
+                			</group>                 			              		   
+            			</group>
+            			<label for="description" string="Terms and conditions"/>          			
+            		</field>
+            	</field>
+            </record>
+            
+            <record model="ir.ui.view" id="crm_lead_tree_view">
+                <field name="name">crm.lead.tree</field>
+                <field name="model">crm.lead</field>
+                <field name="type">tree</field>
+                <field name="inherit_id" ref="crm.crm_case_tree_view_leads"/>
+                <field name="arch" type="xml">
+                	<xpath expr="//tree[@string='Leads']/field[@name='create_date']" position="after">
+                    	<field name="type"/>
+                    	<field name="Policy"/>                  		
+                  		<field name="summary"/> 
+                    </xpath> 
+                    <xpath expr="//tree[@string='Leads']/field[@name='email_from']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>
+                	<xpath expr="//tree[@string='Leads']/field[@name='phone']" position="attributes">   
+                		 <attribute name="invisible">1</attribute>         
+                	</xpath>  
+                </field>
+            </record>
+            
+            <record model="ir.ui.view" id="crm_lead_form_view">
+                <field name="name">crm.lead.form</field>
+                <field name="model">crm.lead</field>
+                <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+                <field name="arch" type="xml">                	
+                    <field name="section_id" position="after"/>
+                    <group>
+                    	<group>
+                    		<field name="Policy"/>
+                  			<field name="type"/>
+                  		</group>
+                  		<group>
+                  			<field name="summary"/>
+                  		</group>  
+                    </group> 
+                      <xpath expr="//form/header/button[@name='407']" position="replace">
+							<button name="407" string="Convert to Slip" type="action" help="Convert to Opportunity" class="oe_highlight"/>                   
+						 </xpath>                  
+                	<xpath expr="//form[@string='Leads Form']/sheet/notebook/page[@string='Internal Notes']" position="replace">
+                		<page string="Terms and conditions">
+                        	<field name="description"/>
+                    	</page>
+                	</xpath>
+                	<xpath expr="//form[@string='Leads Form']/sheet/notebook/page[@string='Extra Info']" position="before">
+                		<page string="Wording">
+                			<field name="wording_crm_lead"/> 
+                    	</page>
+                    </xpath>		
+                	<xpath expr="//form[@string='Leads Form']/sheet/notebook" position="before">               		
+                		<group colspan="1" col="4">
+                			<group>
+                				<!--<field name="product" widget="selection"/>  -->
+                				<field name="product_select"/>
+                    			<!--  <field name="insured_amt_crm_lead"/>-->
+                    			<field name="period_insured_crm_lead"/>
+                    			<field name="premium_cost_crm_lead"/>
+                    			<field name="deductable_crm_lead"/>
+                    		</group> 
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'erection_all_risks'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead"/>
+                    			<field name="scope_ofwork_crm_lead"/>
+                    			<field name="territorial_limit_crm_lead"/>
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'contractor_all_risks'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead1"/>
+                    			<field name="territorial_limit_crm_lead1"/>
+                    			<field name="liability_crm_lead"/>
+                    		</group>
+                  		  	<group attrs="{'invisible': ['|',('product_select','!=', 'third_party_liability'),('product_select', '=', False)]}">
+                    			<field name="liability_crm_lead1"/>
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'public_liability_insurance'),('product_select', '=', False)]}">
+                    			<field name="territorial_limit_crm_lead2"/>
+                    			<field name="xtensions_crm_lead"/>
+                    			<field name="maximum_limit_crm_lead"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'fire_allied_perils_theft'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead2"/>
+                    			<field name="benefit_crm_lead"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'individual_medical_expenses'),('product_select', '=', False)]}">
+                    			<field name="territorial_limit_crm_lead3"/>
+                    			<field name="benefit_crm_lead1"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'plant_all_risk'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead3"/>
+                    			<field name="benefit_crm_lead2"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'money'),('product_select', '=', False)]}">
+                    			<field name="maximum_limit_crm_lead1"/>
+                    			<field name="sum_insured_crm_lead4"/>	
+                    			<field name="territorial_area_crm_lead"/>
+                    			<field name="benefit_crm_lead3"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'personal_accident'),('product_select', '=', False)]}">
+                    			<field name="limit_crm_lead"/>
+                    			<field name="benefit_crm_lead4"/>
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'marine_cargo'),('product_select', '=', False)]}">
+                    			<field name="cancel_period_crm_lead"/>
+                    			<field name="interest_crm_lead"/>	
+                    			<field name="voyage_crm_lead"/>
+                    			<field name="Cargo_crm_lead"/>	
+                    			<field name="bov_crm_lead"/>
+                    			<field name="sum_insured_crm_lead5"/>	
+                    			<field name="benefit_crm_lead5"/>
+                    			<field name="rate_crm_lead"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'non_binding_indication'),('product_select', '=', False)]}">
+                    			<field name="interest_crm_lead1"/>	
+                    			<field name="sum_insured_crm_lead6"/>
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'property_all_risks'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead7"/>
+                    			<field name="benefit_crm_lead6"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'fidelity'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead8"/>
+                    			<field name="xcess_crm_lead"/>
+                    			<field name="xtensions_crm_lead1"/>	
+                    			<field name="benefit_crm_lead7"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'terrorism_liability'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead9"/>
+                    			<field name="benefit_crm_lead8"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'sabotage_terrorism'),('product_select', '=', False)]}">
+                    			<field name="loss_limit_crm_lead"/>
+                    			<field name="sum_insured_crm_lead10"/>
+                    			<field name="benefit_crm_lead9"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'machinery_breakdown'),('product_select', '=', False)]}">
+                    			<field name="scope_ofwork_crm_lead1"/>	
+                    			<field name="sum_insured_crm_lead11"/>
+                    			<field name="territorial_limit_crm_lead4"/>	
+                    			<field name="benefit_crm_lead10"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'motor'),('product_select', '=', False)]}">
+                    			<field name="vehicle_type_crm_lead"/>
+                    			<field name="vehicle_reg_no_crm_lead"/>
+                    			<field name="cover_name_crm_lead"/>	
+                    			<field name="driving_exp_crm_lead"/>
+                    			<field name="sum_insured_crm_lead12"/>
+                    			<field name="benefit_crm_lead11"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'property_contents'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead13"/>
+                    			<field name="benefit_crm_lead12"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'marine_hull'),('product_select', '=', False)]}">
+                    			<field name="cancel_period_crm_lead1"/>
+                    			<field name="interest_crm_lead2"/>
+                    			<field name="voyage_crm_lead1"/>	
+                    			<field name="sum_insured_crm_lead14"/>
+                    			<field name="benefit_crm_lead13"/>
+                    			<field name="rate_crm_lead1"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'group_life'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead15"/>
+                    			<field name="xtensions_crm_lead2"/>
+                    			<field name="benefit_crm_lead14"/>                    			
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'travel'),('product_select', '=', False)]}">
+                    			<field name="xcess_crm_lead1"/>
+                    			<field name="xtensions_crm_lead3"/>
+                    			<field name="benefit_crm_lead15"/>     
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'professional_indemnity'),('product_select', '=', False)]}">
+                    			<field name="limit_crm_lead1"/>
+                    			<field name="benefit_crm_lead16"/>   
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'property_fire'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead16"/>
+                    			<field name="benefit_crm_lead17"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'director_and_officer_liability'),('product_select', '=', False)]}">
+                    			<field name="limit_crm_lead2"/>
+                    			<field name="benefit_crm_lead18"/>  
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'miscellaneous'),('product_select', '=', False)]}">
+                    			<field name="limit_crm_lead3"/>
+                    			<field name="benefit_crm_lead19"/>
+                    			<field name="xtensions_crm_lead4"/> 
+                    			<field name="sum_insured_crm_lead17"/>                    		  
+                    		</group>
+                		</group> 
+                	</xpath>  
+                </field>
+            </record>
+            
+            <record model="ir.ui.view" id="crm_opport_form_view">
+                <field name="name">crm.lead.form</field>
+                <field name="model">crm.lead</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+                <field name="arch" type="xml">
+                	<xpath expr="//form[@string='Opportunities']/sheet/notebook/page[@string='Internal Notes']" position="replace">
+                		<page string="Terms and conditions">
+                        	<field name="description"/>
+                    	</page>
+                	</xpath> 
+                	<xpath expr="//form[@string='Opportunities']/sheet/notebook/page[@string='Lead']" position="before">
+                		<page string="Wording">
+                			<field name="wording_crm_lead"/> 
+                    	</page>
+                    </xpath> 
+                	<xpath expr="//form[@string='Opportunities']/sheet/notebook" position="before">                  		
+                		<group colspan="1" col="4">
+                			<group>
+                				<!--<field name="product" widget="selection"/>  -->
+                				<field name="product_select"/>                    			
+                    			<field name="period_insured_crm_lead"/>
+                    			<field name="premium_cost_crm_lead"/>
+                    			<field name="deductable_crm_lead"/>
+                    			<field name="special"/>
+                    		</group> 
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'erection_all_risks'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead"/>
+                    			<field name="scope_ofwork_crm_lead"/>
+                    			<field name="territorial_limit_crm_lead"/>
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'contractor_all_risks'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead1"/>
+                    			<field name="territorial_limit_crm_lead1"/>
+                    			<field name="liability_crm_lead"/>
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'third_party_liability'),('product_select', '=', False)]}">
+                    			<field name="liability_crm_lead1"/>
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'public_liability_insurance'),('product_select', '=', False)]}">
+                    			<field name="territorial_limit_crm_lead2"/>
+                    			<field name="xtensions_crm_lead"/>
+                    			<field name="maximum_limit_crm_lead"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'fire_allied_perils_theft'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead2"/>
+                    			<field name="benefit_crm_lead"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'individual_medical_expenses'),('product_select', '=', False)]}">
+                    			<field name="territorial_limit_crm_lead3"/>
+                    			<field name="benefit_crm_lead1"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'plant_all_risk'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead3"/>
+                    			<field name="benefit_crm_lead2"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'money'),('product_select', '=', False)]}">
+                    			<field name="maximum_limit_crm_lead1"/>
+                    			<field name="sum_insured_crm_lead4"/>	
+                    			<field name="territorial_area_crm_lead"/>
+                    			<field name="benefit_crm_lead3"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'personal_accident'),('product_select', '=', False)]}">
+                    			<field name="limit_crm_lead"/>
+                    			<field name="benefit_crm_lead4"/>
+                   		 	</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'marine_cargo'),('product_select', '=', False)]}">
+                    			<field name="cancel_period_crm_lead"/>
+                    			<field name="interest_crm_lead"/>	
+                    			<field name="voyage_crm_lead"/>
+                    			<field name="Cargo_crm_lead"/>	
+                    			<field name="bov_crm_lead"/>
+                    			<field name="sum_insured_crm_lead5"/>	
+                    			<field name="benefit_crm_lead5"/>
+                    			<field name="rate_crm_lead"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'non_binding_indication'),('product_select', '=', False)]}">
+                    			<field name="interest_crm_lead1"/>	
+                    			<field name="sum_insured_crm_lead6"/>
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'property_all_risks'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead7"/>
+                    			<field name="benefit_crm_lead6"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'fidelity'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead8"/>
+                    			<field name="xcess_crm_lead"/>
+                    			<field name="xtensions_crm_lead1"/>	
+                    			<field name="benefit_crm_lead7"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'terrorism_liability'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead9"/>
+                    			<field name="benefit_crm_lead8"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'sabotage_terrorism'),('product_select', '=', False)]}">
+                    			<field name="loss_limit_crm_lead"/>
+                    			<field name="sum_insured_crm_lead10"/>
+                    			<field name="benefit_crm_lead9"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'machinery_breakdown'),('product_select', '=', False)]}">
+                    			<field name="scope_ofwork_crm_lead1"/>	
+                    			<field name="sum_insured_crm_lead11"/>
+                    			<field name="territorial_limit_crm_lead4"/>	
+                    			<field name="benefit_crm_lead10"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'motor'),('product_select', '=', False)]}">
+                   		 		<field name="vehicle_type_crm_lead"/>
+                    			<field name="vehicle_reg_no_crm_lead"/>
+                    			<field name="cover_name_crm_lead"/>	
+                    			<field name="driving_exp_crm_lead"/>
+                    			<field name="sum_insured_crm_lead12"/>
+                    			<field name="benefit_crm_lead11"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'property_contents'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead13"/>
+                    			<field name="benefit_crm_lead12"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'marine_hull'),('product_select', '=', False)]}">
+                    			<field name="cancel_period_crm_lead1"/>
+                    			<field name="interest_crm_lead2"/>
+                    			<field name="voyage_crm_lead1"/>	
+                    			<field name="sum_insured_crm_lead14"/>
+                    			<field name="benefit_crm_lead13"/>
+                    			<field name="rate_crm_lead1"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'group_life'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead15"/>
+                    			<field name="xtensions_crm_lead2"/>
+                    			<field name="benefit_crm_lead14"/>                    			
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'travel'),('product_select', '=', False)]}">
+                    			<field name="xcess_crm_lead1"/>
+                    			<field name="xtensions_crm_lead3"/>
+                    			<field name="benefit_crm_lead15"/>     
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'professional_indemnity'),('product_select', '=', False)]}">
+                    			<field name="limit_crm_lead1"/>
+                    			<field name="benefit_crm_lead16"/>   
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'property_fire'),('product_select', '=', False)]}">
+                    			<field name="sum_insured_crm_lead16"/>
+                    			<field name="benefit_crm_lead17"/>	
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'director_and_officer_liability'),('product_select', '=', False)]}">
+                    			<field name="limit_crm_lead2"/>
+                    			<field name="benefit_crm_lead18"/>  
+                    		</group>
+                    		<group attrs="{'invisible': ['|',('product_select','!=', 'miscellaneous'),('product_select', '=', False)]}">
+                    			<field name="limit_crm_lead3"/>
+                    			<field name="benefit_crm_lead19"/>
+                    			<field name="xtensions_crm_lead4"/> 
+                    			<field name="sum_insured_crm_lead17"/>                    		  
+                    		</group>
+                		</group> 
+                	</xpath>  
+                </field>
+            </record>
+            
+            <record model="ir.ui.view" id="sale_customer_form_view">
+                <field name="name">res.partner.form</field>
+                <field name="model">res.partner</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="base.view_partner_form"/>
+                <field name="arch" type="xml">
+                	<field name="website" position="after">
+                		<field name="customer_dob"/>
+                		<field name="insurence_agent"/>
+                	</field>
+                	<xpath expr="//form[@string='Partners']/sheet/notebook/page[@string='Internal Notes']" position="attributes">
+                		<attribute name="invisible">1</attribute>  
+                	</xpath>
+                	<xpath expr="//form[@string='Partners']/sheet/div[@class='oe_title oe_left']/field[@name='category_id']" position="attributes">
+                		<attribute name="invisible">1</attribute> 
+                	</xpath> 
+                	<xpath expr="//form[@string='Partners']/sheet/div[@class='oe_title oe_left']/field[@name='parent_id']" position="attributes">
+                		<attribute name="invisible">1</attribute> 
+                	</xpath>
+                	<xpath expr="//form[@string='Partners']/sheet/notebook/page[@string='Sales &amp; Purchases']" position="before" > 
+                		<page string="Correspondence">
+                			<field name="customer_correspondence"/> 
+                		</page>
+                		<page string="Current Dealing">
+                			<field name="customer_current_deal"/> 
+                		</page>	
+                		<page string="Incomplete Dealing">
+                			<field name="customer_uncomple_deal"/> 
+                		</page>
+                		<page string="Claim History">
+                			<field name="customer_claim_history"/> 
+                		</page>
+                    </xpath>
+                </field>
+            </record>
+            
+            <record model="ir.ui.view" id="crm_claim_name_form_view">
+                <field name="name">crm.claim.form</field>
+                <field name="model">crm.claim</field>
+                <field name="type">form</field>                
+                <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+                <field name="arch" type="xml">                    
+                	<field name="date_deadline" position="after">
+                    	<field name="Partner"/>
+                  		<field name="Policy"/>                  		                 		
+                  		<field name="crm_claim_product"/>
+                  		<field name="claim_amount"/>
+                  		<field name="loss"/>
+                  		<field name="insured"/>
+                  		<field name="sequence"/>
+                    </field>                    
+                </field>
+            </record> 
+            
+    </data>
+</openerp>

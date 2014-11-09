@@ -1,0 +1,6 @@
+import sale_inherit
+import helpdesk
+import sequence
+import account_invoice_inherit
+import rename_opportunity2_slip
+import account_analytic_account_inherit
